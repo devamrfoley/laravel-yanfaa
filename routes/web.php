@@ -11,4 +11,14 @@
 |
 */
 
-Route::get('/', 'ProductsController@index');
+
+Route::get('/', 'PagesController@index')->name('home');
+
+Route::get('products', 'ProductsController@index')->name('products');
+
+Route::get('cart', 'CartController@index')->name('cart');
+Route::get('cart/{product}', 'CartController@store')->name('addToCart');
+
+Route::patch('cart/{product}', 'CartController@edit')->name('editCartItem');
+Route::delete('cart/{product}', 'CartController@delete')->name('removeCartItem');
+Route::delete('cart', 'CartController@destroy')->name('emptyCart');
