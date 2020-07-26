@@ -27,4 +27,25 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function wishlist()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
+
+    public function emptyWishlist()
+    {
+        $this->wishlist->each->delete(); 
+    }
+
+    public function addAllWishlistToCart()
+    {
+        $products = $this->wishlist()->get();
+        foreach($products as $product)
+        {
+            $cart = new Cart(request()->session()->get('cart'));
+            $cart->addItem($product->product);
+            request()->session()->put('cart', $cart);
+        }
+    }
 }

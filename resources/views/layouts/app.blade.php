@@ -49,9 +49,9 @@
       </div>
     </div> 
     <!-- / wpf loader Two -->       
-  <!-- SCROLL TOP BUTTON -->
-    <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
-  <!-- END SCROLL TOP BUTTON -->
+    <!-- SCROLL TOP BUTTON -->
+      <a class="scrollToTop" href="#"><i class="fa fa-chevron-up"></i></a>
+    <!-- END SCROLL TOP BUTTON -->
 
 
   <!-- Start header section -->
@@ -65,7 +65,7 @@
               <!-- start header top left -->
               <div class="aa-header-top-left">
                 <!-- start language -->
-                <div class="aa-language">
+                <!-- <div class="aa-language">
                   <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                       <img src="img/flag/english.jpg" alt="english flag">ENGLISH
@@ -76,11 +76,11 @@
                       <li><a href="#"><img src="img/flag/english.jpg" alt="">ENGLISH</a></li>
                     </ul>
                   </div>
-                </div>
+                </div> -->
                 <!-- / language -->
 
                 <!-- start currency -->
-                <div class="aa-currency">
+                <!-- <div class="aa-currency">
                   <div class="dropdown">
                     <a class="btn dropdown-toggle" href="#" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                       <i class="fa fa-usd"></i>USD
@@ -91,7 +91,7 @@
                       <li><a href="#"><i class="fa fa-jpy"></i>YEN</a></li>
                     </ul>
                   </div>
-                </div>
+                </div> -->
                 <!-- / currency -->
                 <!-- start cellphone -->
                 <div class="cellphone hidden-xs">
@@ -102,11 +102,13 @@
               <!-- / header top left -->
               <div class="aa-header-top-right">
                 <ul class="aa-head-top-nav-right">
-                  <li><a href="account.html">My Account</a></li>
-                  <li class="hidden-xs"><a href="wishlist.html">Wishlist</a></li>
+                  <!-- <li><a href="account.html">My Account</a></li> -->
+                  <li class="hidden-xs"><a href="{{ route('wishlist') }}">Wishlist</a></li>
                   <li class="hidden-xs"><a href="{{ route('cart') }}">My Cart</a></li>
                   <li class="hidden-xs"><a href="#">Checkout</a></li>
-                  <li><a href="" data-toggle="modal" data-target="#login-modal">Login</a></li>
+                  @guest
+                    <li><a href="{{ route('login') }}" data-toggle="modal" data-target="#login-modal">Login</a></li>
+                  @endguest
                 </ul>
               </div>
             </div>
@@ -327,7 +329,7 @@
   <!-- / menu -->
   
 
-        @yield('content')
+  @yield('content')
   
 
   <!-- footer -->  
@@ -431,16 +433,24 @@
         <div class="modal-body">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h4>Login or Register</h4>
-          <form class="aa-login-form" action="">
+          <form class="aa-login-form" method="POST" action="{{ route('login') }}">
+            @csrf
+            
             <label for="">Username or Email address<span>*</span></label>
-            <input type="text" placeholder="Username or email">
+            <input type="text" placeholder="Username or email"  name="email" value="{{ old('email') }}" required />
+            
             <label for="">Password<span>*</span></label>
-            <input type="password" placeholder="Password">
+            <input type="password" placeholder="Password" name="password" required />
+            
             <button class="aa-browse-btn" type="submit">Login</button>
-            <label for="rememberme" class="rememberme"><input type="checkbox" id="rememberme"> Remember me </label>
-            <p class="aa-lost-password"><a href="#">Lost your password?</a></p>
+            
+            <label for="rememberme" class="rememberme">
+              <input type="checkbox" id="rememberme" name="remember" {{ old('remember') ? 'checked' : '' }} />Remember me
+            </label>
+            
+            <p class="aa-lost-password"><a href="{{ route('password.request') }}">Lost your password?</a></p>
             <div class="aa-register-now">
-              Don't have an account?<a href="account.html">Register now!</a>
+              Don't have an account?<a href="{{ route('register') }}">Register now!</a>
             </div>
           </form>
         </div>                        
@@ -451,23 +461,23 @@
   <!-- jQuery library -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.js"></script>  
+  <script src="{{ asset('js/bootstrap.js') }}"></script>  
   <!-- SmartMenus jQuery plugin -->
-  <script type="text/javascript" src="js/jquery.smartmenus.js"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.smartmenus.js') }}"></script>
   <!-- SmartMenus jQuery Bootstrap Addon -->
-  <script type="text/javascript" src="js/jquery.smartmenus.bootstrap.js"></script>  
+  <script type="text/javascript" src="{{ asset('js/jquery.smartmenus.bootstrap.js') }}"></script>  
   <!-- To Slider JS -->
-  <script src="js/sequence.js"></script>
-  <script src="js/sequence-theme.modern-slide-in.js"></script>  
+  <script src="{{ asset('js/sequence.js') }}"></script>
+  <script src="{{ asset('js/sequence-theme.modern-slide-in.js') }}"></script>  
   <!-- Product view slider -->
-  <script type="text/javascript" src="js/jquery.simpleGallery.js"></script>
-  <script type="text/javascript" src="js/jquery.simpleLens.js"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.simpleGallery.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/jquery.simpleLens.js') }}"></script>
   <!-- slick slider -->
-  <script type="text/javascript" src="js/slick.js"></script>
+  <script type="text/javascript" src="{{ asset('js/slick.js') }}"></script>
   <!-- Price picker slider -->
-  <script type="text/javascript" src="js/nouislider.js"></script>
+  <script type="text/javascript" src="{{ asset('js/nouislider.js') }}"></script>
   <!-- Custom js -->
-  <script src="js/custom.js"></script> 
+  <script src="{{ asset('js/custom.js') }}"></script> 
 
   </body>
 </html>

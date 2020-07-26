@@ -15,4 +15,19 @@ class Product extends Model
     {
         return "products/$this->id";
     }
+
+    public function wishlist()
+    {
+        return $this->hasMany(WishList::class);
+    }
+
+    public function addToWishlist()
+    {
+        $this->wishlist()->create(['user_id' => Auth()->user()->id]);
+    }
+
+    public function removeFromWithlist()
+    {
+        $this->wishlist()->delete();
+    }
 }
